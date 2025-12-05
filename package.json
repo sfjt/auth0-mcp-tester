@@ -1,0 +1,24 @@
+{
+  "name": "auth0-mcp-tester",
+  "version": "0.1.0",
+  "description": "A testing application for Auth for MCP",
+  "license": "MIT",
+  "author": "Sho Fujita",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --env-file=.env src/server.ts ",
+    "format": "prettier --write './src/**/*.ts'"
+  },
+  "dependencies": {
+    "@auth0/auth0-api-js": "^1.2.1",
+    "@modelcontextprotocol/sdk": "^1.24.2",
+    "fastmcp": "^3.24.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "prettier": "^3.7.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
