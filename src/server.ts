@@ -2,7 +2,6 @@ import { FastMCP } from "fastmcp"
 import { z } from "zod"
 
 import { authenticate } from "./auth0.js"
-import { text } from "stream/consumers"
 
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN as string
 const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE as string
