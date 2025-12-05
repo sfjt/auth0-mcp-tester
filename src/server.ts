@@ -18,11 +18,9 @@ const server = new FastMCP({
       resource: AUTH0_AUDIENCE,
       authorizationServers: [`https://${AUTH0_DOMAIN}/`],
       jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
-      scopesSupported: ["openid", "profile", "email", ...SCOPES]
+      scopesSupported: ["openid", "profile", "email", ...SCOPES],
     },
-
-  }
-
+  },
 })
 
 server.addTool({
@@ -41,16 +39,18 @@ server.addTool({
 })
 
 server.addTool({
-  "name": "sessioninfo",
+  name: "sessioninfo",
   description: "Returns the current session info",
-  execute: async(_, context) => {
+  execute: async (_, context) => {
     return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(context)
-      }]
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(context),
+        },
+      ],
     }
-  }
+  },
 })
 
 server.start({
