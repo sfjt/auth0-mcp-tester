@@ -7,15 +7,28 @@ import { getOAuthProtectedResourceMetadataUrl } from "@modelcontextprotocol/sdk/
 const PORT = parseInt(process.env.PORT ?? "3001")
 const MCP_SERVER_URL = process.env.MCP_SERVER_URL ?? `http://localhost${PORT}`
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN as string
-const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE as string
+const MCP_SERVER_AUDIENCE = process.env.MCP_SERVER_AUDIENCE as string
+const MCP_SERVER_CLIENT_ID = process.env.MCP_SERVER_CLIENT_ID as string
+const MCP_SERVER_CLIENT_SECRET = process.env.MCP_SERVER_CLIENT_SECRET as string
+
+const TOKEN_EXCHANGE_AUDIENCE = process.env.TOKEN_EXCHANGE_AUDIENCE as string
 
 export type FastMCPAuthSession = AuthInfo & { [key: string]: unknown }
 
 const apiClient = new ApiClient({
   domain: AUTH0_DOMAIN,
-  audience: AUTH0_AUDIENCE,
-  
+  audience: MCP_SERVER_AUDIENCE,
+  clientId: MCP_SERVER_CLIENT_ID,
+  clientSecret: MCP_SERVER_CLIENT_SECRET,
 })
+
+export async function customTokenExchange(subjectToken: string) {
+  return await apiClient.getTokenByExchangeProfile(subjectToken, {
+    subjectTokenType: "urn:fastmcp:mcp",
+    audience: TOKEN_EXCHANGE_AUDIENCE,
+    scope: "openid offline_access test:exchange",
+  })
+}
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.length > 0
