@@ -55,7 +55,7 @@ server.addTool({
 })
 
 server.addTool({
-  name: "github-profile",
+  name: "google-profile",
   description: "Gets Google profile: Requires Google Social connection and Token Vault enabled",
   execute: async (_, context) => {
     const subjectToken = context.session?.token || ""
