@@ -9,11 +9,12 @@ const MCP_SERVER_URL = process.env.MCP_SERVER_URL ?? `http://localhost${PORT}`
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN as string
 const AUTH0_AUDIENCE = process.env.AUTH0_AUDIENCE as string
 
-type FastMCPAuthSession = AuthInfo & { [key: string]: unknown }
+export type FastMCPAuthSession = AuthInfo & { [key: string]: unknown }
 
 const apiClient = new ApiClient({
   domain: AUTH0_DOMAIN,
   audience: AUTH0_AUDIENCE,
+  
 })
 
 function isNonEmptyString(value: unknown): value is string {
@@ -62,6 +63,7 @@ export async function authenticate(req: IncomingMessage) {
       error instanceof InvalidTokenError
     ) {
       const msg = `Bearer error="invalid_token", error_description=${error.message}, resource_metadata=${getOAuthProtectedResourceMetadataUrl(new URL(MCP_SERVER_URL))}`
+      console.log(msg)
       throw new Response(null, {
         status: 401,
         statusText: "Unauthorized",
